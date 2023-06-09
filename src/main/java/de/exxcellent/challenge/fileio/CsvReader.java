@@ -14,15 +14,16 @@ public class CsvReader extends DataReader {
     private final String filePath;
     private final String delimeter;
 
-    public CsvReader(String filePath, String delimeter) {
+    public CsvReader(String filePath, String delimiter) {
         this.filePath = filePath;
-        this.delimeter = delimeter;
+        this.delimeter = delimiter;
     }
 
     @Override
     public DataContainer getDataContainer() {
         List<Map<String, String>> rows = new ArrayList<>();
         List<String> headers = new ArrayList<>();
+
 
         try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
             String[] values = csvReader.readNext(); // Read the headers from the CSV

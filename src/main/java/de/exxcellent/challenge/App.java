@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.FootballAnalysis;
 import de.exxcellent.challenge.analyzer.WeatherAnalysis;
 import de.exxcellent.challenge.data.DataContainer;
 import de.exxcellent.challenge.fileio.DataReader;
@@ -15,7 +16,7 @@ import java.io.IOException;
 public final class App {
 
     public static final String WEATHER_PATH = "src/main/resources/de/exxcellent/challenge/weather.csv";
-
+    public static final String FOOTBALL_PATH = "src/main/resources/de/exxcellent/challenge/football.csv";
     /**
      * This is the main entry method of your program.
      * @param args The CLI arguments passed
@@ -29,12 +30,14 @@ public final class App {
             System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 
 
+            DataContainer footballContainer = DataReader.readIntoDataContainer(FOOTBALL_PATH);
+            String teamWithSmallestGoalSpread = FootballAnalysis.getSmallesDifferenceGoals(footballContainer);
+            System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
-        System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 }
