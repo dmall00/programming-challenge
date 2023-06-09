@@ -1,8 +1,28 @@
 package de.exxcellent.challenge.data;
 
-import de.exxcellent.challenge.fileio.DataReader;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * Container Class to hold tabular like data
+ */
 public class DataContainer {
-    public DataContainer(DataReader dataReader) {
+
+    private final List<Map<String, String>> rows;
+
+    private final List<String> headers;
+
+    public DataContainer(List<Map<String, String>> rows, List<String> headers) {
+        this.rows = rows;
+        this.headers = headers;
     }
+
+    public List<String> getHeaders() {
+        return headers;
+    }
+
+    public List<Map<String, String>> getRows() {
+        return rows;
+    }
+
 }

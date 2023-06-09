@@ -18,7 +18,7 @@ public abstract class DataReader {
 
         switch(fileExenstion){
             case "csv":
-                return new CsvReader(filePath).getDataContainer();
+                return new CsvReader(filePath, ",").getDataContainer();
             // case "json": return new DataContainer(new JsonReader(fileExtension));
             default:
                 throw new IOException("No DataReader for " + fileExenstion + " found.");
@@ -31,7 +31,7 @@ public abstract class DataReader {
          * @param filePath
          */
 
-        if (new File(filePath).exists()) {
+        if (!new File(filePath).exists()) {
             throw new IOException("File not found.");
         }
 
