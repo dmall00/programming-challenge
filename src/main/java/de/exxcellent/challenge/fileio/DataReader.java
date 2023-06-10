@@ -1,8 +1,10 @@
 package de.exxcellent.challenge.fileio;
 
+import com.opencsv.exceptions.CsvValidationException;
 import de.exxcellent.challenge.data.DataContainer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -10,15 +12,13 @@ import java.io.IOException;
  */
 public abstract class DataReader {
 
-    public abstract DataContainer getDataContainer() throws IOException;
-
-    public static DataContainer readIntoDataContainer(String filePath) throws IOException {
+    public static DataContainer readIntoDataContainer(String filePath) throws IOException, CsvValidationException {
 
         String fileExenstion = getFileExtension(filePath);
 
         switch (fileExenstion) {
             case "csv":
-                return new CsvReader(filePath, ",").getDataContainer();
+                return new CsvReader(filePath, ',').getDataContainer();
             // case "json": return new DataContainer(new JsonReader(fileExtension));
             default:
                 throw new DataReaderNotImplementedException();
@@ -28,10 +28,10 @@ public abstract class DataReader {
     /**
      * Checks if file exists and returns file extension
      */
-    private static String getFileExtension(String filePath) throws IOException {
+    private static String getFileExtension(String filePath) throws FileNotFoundException {
 
         if (!new File(filePath).exists()) {
-            throw new IOException("File not found.");
+            throw new FileNotFoundException("File not found.");
         }
 
         String extension = "";
@@ -41,6 +41,8 @@ public abstract class DataReader {
         }
         return extension.toLowerCase();
     }
+
+    public abstract DataContainer getDataContainer() throws IOException, CsvValidationException;
 
     private static class DataReaderException extends IOException {
         public DataReaderException(String message) {

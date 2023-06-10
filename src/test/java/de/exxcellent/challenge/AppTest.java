@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import com.opencsv.exceptions.CsvValidationException;
 import de.exxcellent.challenge.analyzer.DataAnalyzer;
 import de.exxcellent.challenge.analyzer.FootballAnalyzer;
 import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
@@ -8,6 +9,7 @@ import de.exxcellent.challenge.fileio.DataReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,7 +33,7 @@ class AppTest {
      * @throws IOException
      */
     @Test
-    void weatherTest() throws IOException {
+    void weatherTest() throws IOException, CsvValidationException {
         DataContainer weatherContainer = DataReader.readIntoDataContainer(WEATHER_PATH);
         DataAnalyzer<Integer> weatherAnalyzer = new WeatherAnalyzer();
         int dayWithSmallestTempSpread = weatherAnalyzer.findElementWithSmallestDifference(weatherContainer,
@@ -45,7 +47,7 @@ class AppTest {
      * @throws IOException
      */
     @Test
-    void footballTest() throws IOException {
+    void footballTest() throws IOException, CsvValidationException {
         DataContainer footballContainer = DataReader.readIntoDataContainer(FOOTBALL_PATH);
         DataAnalyzer<String> footballAnalyzer = new FootballAnalyzer();
         String teamWithSmallestGoalSpread = footballAnalyzer.findElementWithSmallestDifference(footballContainer,
@@ -59,9 +61,9 @@ class AppTest {
     @Test
     void fileExceptionTests() {
         // Test IOException if file isnt found
-        assertThrows(IOException.class, () -> {
+        assertThrows(FileNotFoundException.class, () -> {
             DataContainer weatherContainer = DataReader.readIntoDataContainer("wrong path");
-        }, "IOException not triggered");
+        }, "FileNotFoundException not triggered");
 
         // Test DataReaderNotImplementedException if specific reader isnt implemented
         assertThrows(DataReader.DataReaderNotImplementedException.class, () -> {
