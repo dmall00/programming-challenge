@@ -12,6 +12,7 @@ import java.util.*;
 public class CsvReader extends DataReader {
 
     private final String filePath;
+    // @TODO delimeter einbauen
     private final String delimeter;
 
     public CsvReader(String filePath, String delimiter) {

@@ -1,7 +1,8 @@
 package de.exxcellent.challenge;
 
-import de.exxcellent.challenge.analyzer.FootballAnalysis;
-import de.exxcellent.challenge.analyzer.WeatherAnalysis;
+import de.exxcellent.challenge.analyzer.DataAnalyzer;
+import de.exxcellent.challenge.analyzer.FootballAnalyzer;
+import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
 import de.exxcellent.challenge.data.DataContainer;
 import de.exxcellent.challenge.fileio.DataReader;
 
@@ -26,12 +27,17 @@ public final class App {
 
         try {
             DataContainer weatherContainer = DataReader.readIntoDataContainer(WEATHER_PATH);
-            int dayWithSmallestTempSpread = WeatherAnalysis.getSmallestTemperatureSpread(weatherContainer);
+            DataAnalyzer<Integer> weatherAnalyzer = new WeatherAnalyzer();
+            int dayWithSmallestTempSpread = weatherAnalyzer.findElementWithSmallestDifference(weatherContainer,
+                    "MxT", "MnT");
             System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 
 
             DataContainer footballContainer = DataReader.readIntoDataContainer(FOOTBALL_PATH);
-            String teamWithSmallestGoalSpread = FootballAnalysis.getSmallesDifferenceGoals(footballContainer);
+            DataAnalyzer<String> footballAnalyzer = new FootballAnalyzer();
+            String teamWithSmallestGoalSpread = footballAnalyzer.findElementWithSmallestDifference(footballContainer,
+                    "Goals", "Goals Allowed");
+
             System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
 
         } catch (IOException e) {
