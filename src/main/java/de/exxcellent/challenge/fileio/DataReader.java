@@ -16,20 +16,19 @@ public abstract class DataReader {
 
         String fileExenstion = getFileExtension(filePath);
 
-        switch(fileExenstion){
+        switch (fileExenstion) {
             case "csv":
                 return new CsvReader(filePath, ",").getDataContainer();
             // case "json": return new DataContainer(new JsonReader(fileExtension));
             default:
-                throw new IOException("No DataReader for " + fileExenstion + " found.");
+                throw new DataReaderNotImplementedException();
         }
     }
 
+    /**
+     * Checks if file exists and returns file extension
+     */
     private static String getFileExtension(String filePath) throws IOException {
-        /**
-         * Checks if file exists and returns file extension
-         * @param filePath
-         */
 
         if (!new File(filePath).exists()) {
             throw new IOException("File not found.");
@@ -42,5 +41,18 @@ public abstract class DataReader {
         }
         return extension.toLowerCase();
     }
+
+    private static class DataReaderException extends IOException {
+        public DataReaderException(String message) {
+            super(message);
+        }
+    }
+
+    public static class DataReaderNotImplementedException extends DataReaderException {
+        public DataReaderNotImplementedException() {
+            super("No datareader for this type of dataformat implemented.");
+        }
+    }
+
 
 }
