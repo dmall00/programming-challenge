@@ -8,7 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Provides a DataReader for different formats like CSV
+ * abstract class for a DataReader for different formats like CSV
+ * can be extended by implementing other reader like for json, etc
  */
 public abstract class DataReader {
 

@@ -2,6 +2,9 @@ package de.exxcellent.challenge.analyzer;
 
 import de.exxcellent.challenge.data.Row;
 
+/**
+ * specific implementation for the football problem
+ */
 public class FootballAnalyzer extends DataAnalyzer<String> {
 
     @Override

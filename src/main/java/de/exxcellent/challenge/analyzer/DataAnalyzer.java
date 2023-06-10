@@ -4,7 +4,11 @@ import de.exxcellent.challenge.data.DataContainer;
 import de.exxcellent.challenge.data.Row;
 
 
-
+/**
+ * Base anstract class for smallest difference
+ *
+ * @param <T> return type of method
+ */
 public abstract class DataAnalyzer<T> {
     protected abstract T extractElement(Row row);
 
@@ -19,6 +23,7 @@ public abstract class DataAnalyzer<T> {
             int value1;
             int value2;
             try {
+                // could fail
                 value1 = Integer.parseInt(row.getValue(value1Key));
                 value2 = Integer.parseInt(row.getValue(value2Key));
             } catch (DataContainer.KeyNotFoundException e) {
@@ -26,6 +31,7 @@ public abstract class DataAnalyzer<T> {
             } catch (NumberFormatException e) {
                 throw new NumberFormatException("Can't parse values into Integer");
             }
+            // calculate difference and compare
             int difference = calculateDifference(value1, value2);
             if (difference < smallestDifference) {
                 smallestDifference = difference;

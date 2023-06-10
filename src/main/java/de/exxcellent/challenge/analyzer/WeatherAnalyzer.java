@@ -2,7 +2,9 @@ package de.exxcellent.challenge.analyzer;
 
 import de.exxcellent.challenge.data.Row;
 
-
+/**
+ * specific implementation for the weather problem
+ */
 public class WeatherAnalyzer extends DataAnalyzer<Integer> {
 
     @Override

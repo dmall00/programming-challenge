@@ -9,11 +9,8 @@ public class DataContainer {
 
     private final List<Row> rows;
 
-    private final List<String> headers;
-
-    public DataContainer(List<Row> rows, List<String> headers) {
+    public DataContainer(List<Row> rows) {
         this.rows = rows;
-        this.headers = headers;
     }
 
     public List<Row> getRows() {
