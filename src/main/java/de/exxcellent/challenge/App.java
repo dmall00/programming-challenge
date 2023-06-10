@@ -6,8 +6,6 @@ import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
 import de.exxcellent.challenge.data.DataContainer;
 import de.exxcellent.challenge.fileio.DataReader;
 
-import java.io.IOException;
-
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -40,7 +38,7 @@ public final class App {
 
             System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

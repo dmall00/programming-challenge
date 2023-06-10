@@ -1,12 +1,13 @@
 package de.exxcellent.challenge.analyzer;
 
-import java.util.Map;
+import de.exxcellent.challenge.data.Row;
+
 
 public class WeatherAnalyzer extends DataAnalyzer<Integer> {
 
     @Override
-    protected Integer extractElement(Map<String, String> row) {
-        return Integer.parseInt(row.get("Day"));
+    protected Integer extractElement(Row row) {
+        return Integer.parseInt(row.getValue("Day"));
     }
 
     @Override

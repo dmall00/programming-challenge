@@ -1,11 +1,12 @@
 package de.exxcellent.challenge.analyzer;
 
 import de.exxcellent.challenge.data.DataContainer;
+import de.exxcellent.challenge.data.Row;
 
-import java.util.Map;
+
 
 public abstract class DataAnalyzer<T> {
-    protected abstract T extractElement(Map<String, String> row);
+    protected abstract T extractElement(Row row);
 
     protected abstract int calculateDifference(int value1, int value2);
 
@@ -13,12 +14,19 @@ public abstract class DataAnalyzer<T> {
         T elementWithSmallestDifference = null;
         int smallestDifference = Integer.MAX_VALUE;
 
-        for (Map<String, String> row : container.getRows()) {
+        for (Row row : container.getRows()) {
             T element = extractElement(row);
-            int value1 = Integer.parseInt(row.get(value1Key));
-            int value2 = Integer.parseInt(row.get(value2Key));
+            int value1;
+            int value2;
+            try {
+                value1 = Integer.parseInt(row.getValue(value1Key));
+                value2 = Integer.parseInt(row.getValue(value2Key));
+            } catch (DataContainer.KeyNotFoundException e) {
+                throw new DataContainer.KeyNotFoundException();
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Can't parse values into Integer");
+            }
             int difference = calculateDifference(value1, value2);
-
             if (difference < smallestDifference) {
                 smallestDifference = difference;
                 elementWithSmallestDifference = element;

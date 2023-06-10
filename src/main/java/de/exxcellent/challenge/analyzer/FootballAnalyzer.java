@@ -1,12 +1,12 @@
 package de.exxcellent.challenge.analyzer;
 
-import java.util.Map;
+import de.exxcellent.challenge.data.Row;
 
 public class FootballAnalyzer extends DataAnalyzer<String> {
 
     @Override
-    protected String extractElement(Map<String, String> row) {
-        return row.get("Team");
+    protected String extractElement(Row row) {
+        return row.getValue("Team");
     }
 
     @Override

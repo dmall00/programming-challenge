@@ -3,10 +3,13 @@ package de.exxcellent.challenge.fileio;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import de.exxcellent.challenge.data.DataContainer;
+import de.exxcellent.challenge.data.Row;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CsvReader extends DataReader {
@@ -22,7 +25,7 @@ public class CsvReader extends DataReader {
 
     @Override
     public DataContainer getDataContainer() {
-        List<Map<String, String>> rows = new ArrayList<>();
+        List<Row> rows = new ArrayList<>();
         List<String> headers = new ArrayList<>();
 
 
@@ -33,9 +36,9 @@ public class CsvReader extends DataReader {
             }
 
             while ((values = csvReader.readNext()) != null) {   // Read Rows and put them in Map
-                Map<String, String> row = new HashMap<>();
+                Row row = new Row();
                 for (int i = 0; i < headers.size(); i++) {
-                    row.put(headers.get(i), values[i]);
+                    row.putValue(headers.get(i), values[i]);
                 }
                 rows.add(row);
             }
